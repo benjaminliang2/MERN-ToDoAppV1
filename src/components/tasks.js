@@ -14,25 +14,36 @@ export const Tasks = ({selectedList}) => {
   useEffect(()=>{
     setExistingTasks(allTasks)
   },[selectedList])
-
-  const map = existingTasks.map((task) =>{
-    return(<>
-      <h3>{task}</h3>
-    </>)
-    
-  })
+  
   const addNewTask = async (e)=>{
     e.preventDefault();
     setExistingTasks([...existingTasks, newTask])
-    //add new list to database
-    let response = await fetch('http://localhost:5000/api/v1/lists' + _id, {
+    await fetch('http://localhost:5000/api/v1/lists' + _id, {
       method: 'PATCH',
       body: JSON.stringify({newTask}),
       headers: {
         'Content-Type': 'application/json'
     }
     })
+    .then(res => res.json())
+    .then(res => console.log(res))
+    setNewTask("")
   }
+  
+  // const deleteTask =()=>{
+
+  // }
+  
+  const map = existingTasks.map((task) =>{
+    return(<>
+      <h3>{task}</h3>
+      {/* <button onClick={deleteTask}>delete task</button> */}
+    </>)
+    
+  })
+
+
+  
 
   
   const handleChange = (event)=>{

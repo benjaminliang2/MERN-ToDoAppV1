@@ -44,14 +44,14 @@ app.get("/api/v1/lists", async(req, res) =>{
 //create a list 
 app.post("/api/v1/lists", async (req, resp) => {
     try {
-        
-        // console.log("____" + Object.getOwnPropertyNames(req.body))
-        console.log(req.body.newTitle)
         const list = new List({
             title: req.body.newTitle,
-
         });
-        await list.save();
+        let result = await list.save();
+        if (result){
+            console.log("saved successfully")
+            resp.send(result)
+        }
 
     } catch (e) {
         resp.send("Something Went Wrong");
@@ -64,20 +64,30 @@ app.delete("/api/v1/lists:id", async (req,res)=>{
     try {
         console.log(req.params)
         const { id: listID } = req.params
-        const list = await List.findOneAndDelete({ _id: listID })
+        let result = await List.findOneAndDelete({ _id: listID })
+        if (result){
+            res.send(result)
+        }
     } catch (error) {
         res.send(error)
     }
 })
 
+//create task within a list
 app.patch("/api/v1/lists:id", async (req,res) =>{
-    const { id: listID } = req.params
-    console.log(listID)
-    console.log(req.body.newTask)
-    List.findByIdAndUpdate({_id: listID}, {$addToSet:{items: req.body.newTask}}, (err)=>{
-        if(err){
-            console.log(err)
+    // console.log(listID)
+    // console.log(req.body.newTask)
+    try {
+        const { id: listID } = req.params
+        let result = await List.findByIdAndUpdate({_id: listID}, {$addToSet:{items: req.body.newTask}}, {returnDocument: 'after'})
+        if(result){
+            res.send(result)
         }
-    })
+    } catch (error) {
+        console.log(error)
+    }
 })
+
+//delete a task within a list
+
 app.listen(5000);
