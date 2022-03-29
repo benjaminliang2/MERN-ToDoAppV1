@@ -27,11 +27,9 @@ app.get("/", (req, resp) => {
 app.get("/api/v1/lists", async(req, res) =>{
     console.log("get request to display list")
     try {
-        List.find({}, (err,allLists) => {
-           res.json(allLists)
-           let count = allLists.length
-           console.log(count)
-        });
+        let result = await List.find({}).sort({sort:1});
+        res.json(result)
+
     } catch (error) {
         
     }
@@ -42,6 +40,7 @@ app.post("/api/v1/lists", async (req, resp) => {
     try {
         const list = new List({
             title: req.body.newTitle,
+            sort: req.body.sort
         });
         let result = await list.save();
         if (result){

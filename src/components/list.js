@@ -9,6 +9,8 @@ export const List = ()=>{
     const [existingLists, setExistingLists] = useState([])
     const [newList, setNewList] = useState({title:"", items:[]})
     const [newTitle, setNewTitle] = useState("")
+    const [listSize, setListSize] = useState(0)
+
 
     const addNewList = async (e)=>{
         e.preventDefault();
@@ -18,13 +20,17 @@ export const List = ()=>{
         // setExistingLists(function(prevState, props){
         //     return {existingLists: [...prevState, newList]}
         // })
-
+        if (listSize === 0){
+            var sort = 1;
+        } else {
+            var sort = existingLists[listSize-1].sort + 1 
+        }
         setExistingLists(prevState =>([...prevState, newList]))
         // console.log(existingTasks)
         await fetch(
             'http://localhost:5000/api/v1/lists', {
                 method: "post",
-                body: JSON.stringify({ newTitle }),
+                body: JSON.stringify({ newTitle, sort }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -70,6 +76,7 @@ export const List = ()=>{
         })
         .then(items => {
             setExistingLists(items)
+            setListSize(items.length)
         })
         // console.log("gotexisitinlists -- completed")
     }
