@@ -1,0 +1,45 @@
+body{
+    background: #5e5e5e
+}
+
+
+
+h1 {
+    color: rgb(223, 223, 223);
+    text-align: center;
+}
+
+.lists-container{
+    float: left;
+    width: 50%;
+
+}
+
+.tasks-container{
+    float: right;
+    width: 50%;
+}
+
+.lists-container ul{
+    width: 70%;
+    margin: auto;
+}
+
+.lists-container li {
+    background: #fff;
+    border-radius: 5px;
+    margin-bottom: 7px;
+    position: relative;
+    word-break: break-word;
+
+    
+}
+
+.lists-container h4{
+    display: block;
+}
+
+.delete-btn{
+    float: right;
+
+}

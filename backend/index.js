@@ -1,23 +1,17 @@
 require('dotenv').config()
+const List = require("./models/list")
+const Task = require("./models/task")
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const cors = require("cors");
 
 
+
 // To connect with your mongoDB database
 mongoose.connect(process.env.ATLAS_URI)
 
-// Schema for lists of app
-const ListSchema = new mongoose.Schema({
-    title:{
-        type:String
-    },
-    items:[]
 
-});
-const List = mongoose.model('lists', ListSchema);
-// User.createIndexes();
 
 // For backend and express
 
@@ -60,7 +54,7 @@ app.post("/api/v1/lists", async (req, resp) => {
 });
 
 //delete a list
-app.delete("/api/v1/lists:id", async (req,res)=>{
+app.delete("/api/v1/lists/:id", async (req,res)=>{
     try {
         console.log(req.params)
         const { id: listID } = req.params
@@ -73,13 +67,32 @@ app.delete("/api/v1/lists:id", async (req,res)=>{
     }
 })
 
+
+//get all tasks within a list
+app.get("/api/v1/lists/:id", async (req,res) =>{
+    try {
+        const { id: listID } = req.params
+        let result = List.findOne({_id: listID}, (err, list)=>{
+            res.json(list)
+        })
+        // if(result){
+        //     res.send(result)
+        // }
+    } catch (error) {
+        res.send(error)
+        console.log("Error getting all tasks in selected list----" + error)
+    }
+
+})
+
 //create task within a list
-app.patch("/api/v1/lists:id", async (req,res) =>{
+app.patch("/api/v1/lists/:id", async (req,res) =>{
     // console.log(listID)
     // console.log(req.body.newTask)
     try {
         const { id: listID } = req.params
-        let result = await List.findByIdAndUpdate({_id: listID}, {$addToSet:{items: req.body.newTask}}, {returnDocument: 'after'})
+        let newTask = new Task({title:req.body.newTaskTitle})
+        let result = await List.findByIdAndUpdate({_id: listID}, {$addToSet:{items: newTask}}, {returnDocument: 'after'})
         if(result){
             res.send(result)
         }
@@ -89,5 +102,20 @@ app.patch("/api/v1/lists:id", async (req,res) =>{
 })
 
 //delete a task within a list
+app.delete("/api/v1/lists/:listid/:taskid", async (req,res)=>{
+    console.log(req.params)
+    try {
+        const {listid: listID, taskid: taskID} = req.params;
+        let result = await List.findOneAndUpdate({"_id": listID}, {$pull: {"items": {"_id": taskID}}}, {returnDocument: 'after'} )
+        if (result){
+            console.log("success")
+            res.send(result)
+        }
+
+    } catch (error) {
+        res.send(error)
+        console.log("error deleting task---" + error)
+    }
+})
 
 app.listen(5000);

@@ -2,42 +2,63 @@ import React, {useState, useEffect} from 'react'
 
 export const Tasks = ({selectedList}) => {
   const title = selectedList.title;
-  const allTasks = selectedList.items;
-  const _id = selectedList._id;
+  const currentListId = selectedList._id;
   
-  const [existingTasks,setExistingTasks] =useState(allTasks)
-  const [newTask, setNewTask] = useState('Add new task')
-  // console.log(allTasks[0]);
-  // console.log(existingTasks)
-
+  const [existingTasks,setExistingTasks] =useState([])
+  const [newTaskObject, setNewTaskObject] = useState({title: 'Add new task'})
+  const [newTaskTitle, setNewTaskTitle] = useState("")
 
   useEffect(()=>{
-    setExistingTasks(allTasks)
-  },[selectedList])
-  
+    console.log("render tasks comp")
+    getAllTasks()
+  }, [selectedList])
+
+  async function getAllTasks(){
+    console.log("getting all tasks pending")
+    await fetch("http://localhost:5000/api/v1/lists/" + currentListId)
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      setExistingTasks(res.items)
+    })
+    
+    console.log(existingTasks)
+  }
+
   const addNewTask = async (e)=>{
     e.preventDefault();
-    setExistingTasks([...existingTasks, newTask])
-    await fetch('http://localhost:5000/api/v1/lists' + _id, {
+    setExistingTasks([...existingTasks, newTaskObject])
+    await fetch('http://localhost:5000/api/v1/lists/' + currentListId, {
       method: 'PATCH',
-      body: JSON.stringify({newTask}),
+      body: JSON.stringify({newTaskTitle}),
       headers: {
         'Content-Type': 'application/json'
     }
     })
     .then(res => res.json())
     .then(res => console.log(res))
-    setNewTask("")
+    setNewTaskObject({title:""})
+    getAllTasks();
+
   }
   
-  // const deleteTask =()=>{
-
-  // }
+  const deleteTask = async (event)=>{
+    event.preventDefault();
+    const taskId = event.target.value;
+    await fetch('http://localhost:5000/api/v1/lists/' + currentListId + '/' + taskId, {
+      method: 'DELETE',
+    })
+    .then(res => res.json())
+    .then(res => console.log(res))
+    getAllTasks();
+  }
   
   const map = existingTasks.map((task) =>{
+    // console.log("task ID # = " +task._id)
     return(<>
-      <h3>{task}</h3>
-      {/* <button onClick={deleteTask}>delete task</button> */}
+      <h3>{task.title}</h3>
+      <button value={task._id} onClick={deleteTask}>delete task</button>
     </>)
     
   })
@@ -47,7 +68,9 @@ export const Tasks = ({selectedList}) => {
 
   
   const handleChange = (event)=>{
-    setNewTask(event.target.value)
+    setNewTaskObject({title: event.target.value})
+    setNewTaskTitle(event.target.value);
+
   }
   // console.log(title)
   return (<>
@@ -55,7 +78,7 @@ export const Tasks = ({selectedList}) => {
     <ul>{map}</ul>
     
     <form >
-            <input type="text" value={newTask} onChange={handleChange}/>
+            <input type="text" value={newTaskObject.title} onChange={handleChange}/>
             <button onClick={addNewTask}>Add</button>
     </form>
   </>
