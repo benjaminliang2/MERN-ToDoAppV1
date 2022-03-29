@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Tasks} from "./tasks"
 import "../styles.css"
-import {FaTrashAlt} from 'react-icons/fa'
 
 export const List = ()=>{
     // const [tasksVisible, setTasksVisible] = useState(false)
@@ -86,7 +85,6 @@ export const List = ()=>{
     const handleListSelect = (event)=>{
         const {value} = event.target;
         const listID = value;
-        console.log(value)
         const tempSelectedList = existingLists.find(x => x._id === listID)
         setSelectedList(tempSelectedList)
         console.log(selectedList);
@@ -99,8 +97,7 @@ export const List = ()=>{
             <li >
                 {/* if i switch the button for an h1 element to display title, i cant return the value with event.target.value */}
                 <button onClick={handleListSelect} value ={list._id}>{list.title} </button>
-                <button onClick={deleteList} value={list._id} className="delete-btn"><FaTrashAlt/></button>  
-                {/* {list.title}                                                */}
+                <button onClick={deleteList} value={list._id}>delete this list</button>                                                 
             </li>
         </>
         )
@@ -114,8 +111,8 @@ export const List = ()=>{
                 {map}      
             </ul>
             <form >
-                <input type="text"  value={newList.title} onChange={handleChange} className="" placeholder="Add item..."/>
-                <button className="" onClick={addNewList}>Add</button>
+                <input type="text" value={newList.title} onChange={handleChange}/>
+                <button onClick={addNewList}>Add</button>
             </form>
         </div>
         <div className="tasks-container">

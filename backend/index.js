@@ -29,6 +29,8 @@ app.get("/api/v1/lists", async(req, res) =>{
     try {
         List.find({}, (err,allLists) => {
            res.json(allLists)
+           let count = allLists.length
+           console.log(count)
         });
     } catch (error) {
         

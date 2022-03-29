@@ -4,6 +4,9 @@ const TaskSchema = require("./task").schema
 // import mongoose from "mongoose";
 
 const ListSchema = new mongoose.Schema({
+    sort:{
+        type: Number
+    },
     title:{
         type:String
     },
