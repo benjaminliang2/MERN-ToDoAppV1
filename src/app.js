@@ -1,9 +1,11 @@
 import React from "react";
-import {List} from "./components/list.js"
+import {Lists} from "./components/lists.js"
 
 
 export const App = ()=>{
+
     return<>
-        <List/>
+        <Lists/>
+        
     </>
 }

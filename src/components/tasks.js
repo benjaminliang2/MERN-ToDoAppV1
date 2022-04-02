@@ -9,12 +9,12 @@ export const Tasks = ({selectedList}) => {
   const [newTaskTitle, setNewTaskTitle] = useState("")
 
   useEffect(()=>{
-    console.log("render tasks comp")
+    // console.log("render tasks comp")
     getAllTasks()
   }, [selectedList])
 
   async function getAllTasks(){
-    console.log("getting all tasks pending")
+    // console.log("getting all tasks pending")
     await fetch("http://localhost:5000/api/v1/lists/" + currentListId)
     .then(res => {
       return res.json()
@@ -23,7 +23,7 @@ export const Tasks = ({selectedList}) => {
       setExistingTasks(res.items)
     })
     
-    console.log(existingTasks)
+    // console.log(existingTasks)
   }
 
   const addNewTask = async (e)=>{
@@ -74,13 +74,14 @@ export const Tasks = ({selectedList}) => {
   }
   // console.log(title)
   return (<>
-    <h1>{title}</h1>
-    <ul>{map}</ul>
-    
-    <form >
-            <input type="text" value={newTaskObject.title} onChange={handleChange}/>
-            <button onClick={addNewTask}>Add</button>
-    </form>
+  
+      <h1>{title}</h1>
+      <ul>{map}</ul>
+      
+      <form >
+              <input type="text" value={newTaskObject.title} onChange={handleChange}/>
+              <button onClick={addNewTask}>Add</button>
+      </form>
   </>
       
   )

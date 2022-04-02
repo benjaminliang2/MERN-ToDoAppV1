@@ -35,6 +35,19 @@ app.get("/api/v1/lists", async(req, res) =>{
     }
 })
 
+//update a list
+//not sure what best practices are for this
+app.patch("/api/v1/lists", async(req, res) =>{
+    try {
+        const {id, sort} = req.body;
+        let result = await List.findByIdAndUpdate({_id: id}, {sort: sort})
+        res.json(result)
+
+    } catch (error) {
+        
+    }
+})
+
 //create a list 
 app.post("/api/v1/lists", async (req, resp) => {
     try {
