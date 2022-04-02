@@ -4,9 +4,17 @@ import {Tasks} from "./tasks"
 import "../styles.css"
 import {List} from './list'
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import { testdata2 } from "./testdata2";
+import {Button, Icon} from "semantic-ui-react"
 
 
+let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+}
+
+const date = new Date().toLocaleDateString("en-us", options);
+console.log(date)
 
 
 export const Lists = ()=>{
@@ -166,7 +174,10 @@ export const Lists = ()=>{
     }
 
     return<>
-        <div className="lists-container">     
+        <h1>{date} </h1>
+
+        <div className="lists-container"> 
+            <h2>Projects</h2>    
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="listsection">
                     {(provided) =>(
@@ -179,14 +190,19 @@ export const Lists = ()=>{
             </DragDropContext>
 
 
-                <form >
-                    <input type="text" value={newList.title} onChange={handleChange}/>
-                    <button onClick={addNewList}>Add</button>
-                </form>
+            <form className="add-control" >
+                <div className="form-group">
+                    <input className="form-control-sm" type="text" value={newList.title} onChange={handleChange} placeholder="Add new list..."/>                    
+                    <button className="add-list-button" onClick={addNewList}>
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>    
+            </form>
+                
         </div>  
 
         <div className="tasks-container">
-            {selectedList ? <Tasks selectedList = {selectedList} /> : "No List Selected"}
+            {selectedList ? <Tasks selectedList =  {selectedList} /> : <h2>No List Selected</h2> }
 
         </div>
             

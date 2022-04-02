@@ -1,36 +1,83 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Roboto&display=swap');
+
 body{
-    background: #5e5e5e
+    height: 100%;
+    background-color: rgb(169, 179, 192);
+    font-family: 'Nunito', sans-serif;
 }
 
-h1 {
-    color: rgb(223, 223, 223);
+h1{
+    background-color: rgb(40, 42, 48);
+    font-size: 1.3em;
+    padding: 1rem;
+}
+
+h1, h2 {
+    color: rgb(255, 255, 255);
     text-align: center;
 }
 
 .lists-container{
     float: left;
-    width: 50%;
-
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    left: 0;
 }
-.lists-container .list{
-    background: rgb(208, 155, 216);
-    border-radius: 10px;
+
+
+.lists-container h2{
+    text-align: left;
+    margin-left: 10px;
+}
+.list{
+    border-radius: 5px;
+    padding: 5px;
     margin-bottom: 7px;
     position: relative;
     word-break: break-word;
 }
-
-.lists-container .list h2{
-    
+.list:hover{
+    background-color: aliceblue;
 }
 
-.lists-container .list .delete-button{
-    float: left;
+.list h3{
     display: inline;
-    margin-right: 30px;
+    font-size: 1.0em;
+    text-transform: capitalize;
+    margin: 10px;
+
 }
+
+
+.list .delete-btn{
+    float: right;
+    border: none;
+}
+.list-form{
+    margin: 5px auto;
+    width: 60%;
+    border-radius: 3px;
+}
+ .add-list-button {
+
+ } 
+
 
 .tasks-container{
     float: right;
     width: 50%;
+}
+.tasks-container h1{
+    display: inline;
+    font-size: 1.0em;
+    text-transform: capitalize;
+}
+
+button > * {
+    pointer-events: none;
+}
+.list > h3{
+    pointer-events: none;
 }

@@ -5,7 +5,7 @@ export const Tasks = ({selectedList}) => {
   const currentListId = selectedList._id;
   
   const [existingTasks,setExistingTasks] =useState([])
-  const [newTaskObject, setNewTaskObject] = useState({title: 'Add new task'})
+  const [newTaskObject, setNewTaskObject] = useState({title: ''})
   const [newTaskTitle, setNewTaskTitle] = useState("")
 
   useEffect(()=>{
@@ -78,9 +78,14 @@ export const Tasks = ({selectedList}) => {
       <h1>{title}</h1>
       <ul>{map}</ul>
       
-      <form >
-              <input type="text" value={newTaskObject.title} onChange={handleChange}/>
-              <button onClick={addNewTask}>Add</button>
+      <form className='add-control' >
+        <div className="form-group">
+            <input className='form-control-sm' type="text" value={newTaskObject.title} onChange={handleChange} placeholder="Add New Task..." />
+            <button onClick={addNewTask}>
+              <i class="fa fa-plus"></i>
+            </button>
+        </div>
+              
       </form>
   </>
       

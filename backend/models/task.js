@@ -2,6 +2,9 @@ const mongoose = require("mongoose")
 // import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema({
+    sort:{
+        type: Number
+    },
     title: String,
 
 })
