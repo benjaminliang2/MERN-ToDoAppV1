@@ -84,11 +84,10 @@ export const Lists = ()=>{
             return (data.json())
         })
         .then(items => {
+            // console.log(items)
             setExistingLists(items)
-            // console.log(existingLists)
             setListSize(items.length)
         })
-        // console.log("gotexisitinlists -- completed")
     }
 
     
@@ -174,7 +173,11 @@ export const Lists = ()=>{
     }
 
     return<>
-        <h1>{date} </h1>
+        <div className="heading" >
+            <h1 className="app-name">Task Manager </h1>
+            <h1 className="todays-date">{date} </h1>
+        </div>
+
 
         <div className="lists-container"> 
             <h2>Projects</h2>    
@@ -194,7 +197,7 @@ export const Lists = ()=>{
                 <div className="form-group">
                     <input className="form-control-sm" type="text" value={newList.title} onChange={handleChange} placeholder="Add new list..."/>                    
                     <button className="add-list-button" onClick={addNewList}>
-                        <i class="fa fa-plus"></i>
+                        <i className="fa fa-plus"></i>
                     </button>
                 </div>    
             </form>

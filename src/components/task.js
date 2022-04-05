@@ -1,9 +1,15 @@
+import styled from "styled-components"
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import {BsTrash2Fill} from "react-icons/bs"
 
 
-
+const Container = styled.div`
+    ${'' /* border: 1px solid lightgrey; */}
+    border-radius: 2px;
+    margin-bottom: 8px;
+    
+`;
 
 
 export const Task = (props)=>{
@@ -12,7 +18,7 @@ export const Task = (props)=>{
             {(provided, snapshot) =>(
                 <div
                 {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}> 
-                    <div className="task" value={props.task._id} onClick = {props.handleTaskSelect} > 
+                    <div className="task"> 
                         <h3>{props.task.title}</h3>
                         <button className="delete-btn fa"  value={props.task._id} onClick={props.handleDeleteTask} >   
                             <BsTrash2Fill/>

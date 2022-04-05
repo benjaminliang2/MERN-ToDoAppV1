@@ -7,10 +7,19 @@ body{
     font-family: 'Nunito', sans-serif;
 }
 
-h1{
+.heading{
     background-color: rgb(40, 42, 48);
-    font-size: 1.3em;
     padding: 1rem;
+}
+h1{
+    font-size: 1.35rem;
+}
+.app-name{
+    display: inline;
+}
+.todays-date{
+    display: inline;
+    float: right;
 }
 
 h1, h2 {
@@ -20,10 +29,8 @@ h1, h2 {
 
 .lists-container{
     float: left;
-    width: 20%;
+    width: 35%;
     height: 100%;
-    position: fixed;
-    left: 0;
 }
 
 
@@ -32,52 +39,66 @@ h1, h2 {
     margin-left: 10px;
 }
 .list{
+    max-width: 370px;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 7px;
-    position: relative;
     word-break: break-word;
+    margin-left: 25px;
 }
 .list:hover{
     background-color: aliceblue;
 }
 
-.list h3{
+.list .list-title{
     display: inline;
     font-size: 1.0em;
     text-transform: capitalize;
-    margin: 10px;
-
 }
 
 
 .list .delete-btn{
-    float: right;
     border: none;
+    position: relative;
+    float: right;
 }
-.list-form{
-    margin: 5px auto;
-    width: 60%;
-    border-radius: 3px;
-}
- .add-list-button {
-
- } 
 
 
 .tasks-container{
     float: right;
     width: 50%;
 }
-.tasks-container h1{
+.tasks-container h2{
     display: inline;
-    font-size: 1.0em;
+    font-size: 1.78em;
     text-transform: capitalize;
+
 }
 
 button > * {
     pointer-events: none;
 }
-.list > h3{
+.list .row > h3{
     pointer-events: none;
+}
+.task{
+    max-width: 550px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 7px;
+    position: relative;
+    word-break: break-word;
+}
+
+.task .delete-btn{
+    float: right;
+    border: none;
+}
+
+.task h3{
+    display: inline;
+    font-size: 1.0em;
+    text-transform: capitalize;
+    margin: 10px;
+
 }

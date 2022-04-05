@@ -19,14 +19,16 @@ export const List = (props)=>{
             {(provided, snapshot) =>(
                 <div
                 {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}> 
-                    <div className="list" value={props.list._id} onClick = {props.handleListSelect} > 
-                        <h3>{props.list.title}</h3>
-                        <button className="delete-btn fa"  value={props.list._id} onClick={props.handleDeleteList} >   
-                            <BsTrash2Fill/>
-                            {/* <span aria-hidden="true">&times;</span> */}
-                            {/* <i class="fa fa-trash" aria-hidden="true"></i> */}
-                        </button>
-                        
+                    <div className="list container"  > 
+                        <div className="row" value={props.list._id} onClick = {props.handleListSelect}>
+                            <h3 className='list-title col'>{props.list.title}</h3>
+                            <div className="col-auto">
+                                <button className="delete-btn fa"  value={props.list._id} onClick={props.handleDeleteList} >   
+                                    <BsTrash2Fill/>
+                                </button>
+                            </div>
+                            
+                        </div>
                                             
                     </div>
                 </div>
